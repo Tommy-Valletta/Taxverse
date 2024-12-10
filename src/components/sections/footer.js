@@ -7,31 +7,19 @@ const Footer = () => (
   <FooterWrapper id="footer">
     <FooterColumnContainer>
       <FooterColumn>
-        <span>Features</span>
-        <ul>
-          <li>Automation</li>
-          <li>Rewards</li>
-        </ul>
-      </FooterColumn>
-      <FooterColumn>
-        <span>Resources</span>
-        <ul>
-          <li>Compare</li>
-          <li>Blog</li>
-        </ul>
-      </FooterColumn>
-      <FooterColumn>
         <span>Company</span>
         <ul>
-          <li>About Us</li>
-          <li>Careers</li>
-        </ul>
-      </FooterColumn>
-      <FooterColumn>
-        <span>Social</span>
-        <ul>
-          <li>LinkedIn</li>
-          <li>Instagram</li>
+          <li>
+            <li>About Us</li>
+            <a href= "https://www.linkedin.com/in/joshuatallen/" target="_blank" rel="noopener noreferrer">
+              Joshua Allen
+            </a>
+          </li>
+          <li>
+            <a href= "https://www.linkedin.com/in/thomas-v-797971110/" target="_blank" rel="noopener noreferrer">
+              Thomas Valletta
+            </a>
+          </li>
         </ul>
       </FooterColumn>
     </FooterColumnContainer>
@@ -73,16 +61,19 @@ const BrandContainer = styled(Container)`
   }
 `
 const FooterColumnContainer = styled(Container)`
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-column-gap: 32px;
-  justify-content: start;
+  display: flex;
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  flex-direction: column; /* Stack columns vertically */
+  padding: 20px 0;
+
   @media (max-width: ${props => props.theme.screen.sm}) {
-    grid-template-columns: 1fr 1fr;
-    grid-gap: 32px;
+    justify-content: center;
   }
-`
+`;
+
 const FooterColumn = styled.div`
+  text-align: center; /* Center text inside the column */
   span {
     font-size: 16px;
     font-family: ${props => props.theme.font.bold};
@@ -99,6 +90,7 @@ const FooterColumn = styled.div`
       font-size: 15px;
     }
   }
-`
+`;
+
 
 export default Footer

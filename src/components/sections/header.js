@@ -4,6 +4,7 @@ import { graphql, useStaticQuery, Link } from "gatsby"
 import Img from "gatsby-image"
 
 import { Container } from "../global"
+import { supabase } from "../../supabase"
 
 const Header = () => {
   const data = useStaticQuery(graphql`
@@ -18,9 +19,30 @@ const Header = () => {
     }
   `)
 
-  const handleSubmit = event => {
-    event.preventDefault()
+  const handleSubmit = async (event) => {
+  event.preventDefault();
+  const email = event.target[0].value;
+
+  if (!email) {
+    alert('Please enter a valid email!');
+    return;
   }
+
+  try {
+    const { data, error } = await supabase.from('leads').insert([{ email }]);
+
+    if (error) {
+      console.error('Error adding lead:', error);
+      alert('There was an error. Please try again.');
+    } else {
+      alert('Thank you for signing up!');
+      event.target.reset(); // Clear the form
+    }
+  } catch (error) {
+    console.error('Unexpected error:', error);
+    alert('There was an error. Please try again.');
+  }
+};
 
   return (
     <HeaderWrapper id="top">
@@ -37,7 +59,7 @@ const Header = () => {
             <h2>
             An Automated Research Assistant for Tax Professionals
             </h2>
-            <HeaderForm onSubmit={handleSubmit}>
+            <HeaderForm id="signup-form" onSubmit={handleSubmit}>
               <HeaderInput placeholder="Your email" />
               <HeaderButton>Early access</HeaderButton>
             </HeaderForm>

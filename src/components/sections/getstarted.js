@@ -3,15 +3,52 @@ import styled from "styled-components"
 
 import { Container, Section } from "../global"
 
-const GetStarted = () => (
-  <StyledSection>
-    <GetStartedContainer>
-      <GetStartedTitle>Be the first to get the beta</GetStartedTitle>
-      <TryItButton>Get early access</TryItButton>
-      <Subtitle>No credit card required.</Subtitle>
-    </GetStartedContainer>
-  </StyledSection>
-)
+const GetStarted = () => {
+  const scrollToForm = () => {
+    const form = document.querySelector("#signup-form");
+    if (form) {
+      const formHeight = form.offsetHeight;
+      const windowHeight = window.innerHeight;
+      const offset = (windowHeight - formHeight) / 2; // Center the form vertically
+      const yPosition = form.getBoundingClientRect().top + window.pageYOffset - offset;
+  
+      window.scrollTo({
+        top: yPosition,
+        behavior: "smooth",
+      });
+
+      setTimeout(() => {
+        form.style.transition = "transform 0.3s ease";
+  
+        // First grow
+        form.style.transform = "scale(1.05)";
+        setTimeout(() => {
+          // First shrink
+          form.style.transform = "scale(1)";
+          setTimeout(() => {
+            // Second grow
+            form.style.transform = "scale(1.05)";
+            setTimeout(() => {
+              // Second shrink
+              form.style.transform = "scale(1)";
+            }, 350); // Delay for second shrink
+          }, 350); // Delay for second grow
+        }, 350); // Delay for first shrink
+      }, 500); // Delay before starting the blink effect
+
+    }
+  };  
+  
+    return (
+    <StyledSection>
+      <GetStartedContainer>
+        <GetStartedTitle>Be the first to get the beta</GetStartedTitle>
+        <TryItButton onClick={scrollToForm}>Get early access</TryItButton>
+        <Subtitle>No credit card required.</Subtitle>
+      </GetStartedContainer>
+    </StyledSection>
+  )
+};
 
 export default GetStarted
 

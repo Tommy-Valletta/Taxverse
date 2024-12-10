@@ -4,6 +4,9 @@ FROM node:18-alpine
 # Set the working directory
 WORKDIR /app
 
+# Install Gatsby CLI
+RUN npm install -g gatsby-cli
+
 # Copy package.json and package-lock.json to the container
 COPY package.json package-lock.json ./
 
@@ -20,5 +23,5 @@ RUN npm run build
 EXPOSE 9000
 
 # Command to start the app
-CMD ["npm", "gatsby", "serve", "--host", "0.0.0.0", "--port", "9000"]
+CMD ["gatsby", "serve", "--host", "0.0.0.0", "--port", "9000"]
 
